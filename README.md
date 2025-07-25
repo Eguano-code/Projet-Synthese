@@ -1,6 +1,5 @@
 # Projet-Synthese# Plateforme ME – Simplifiez la gestion. Réussissez vos événements.
 
-![Logo](static/Logo_plateforme.png)
 
 ## 📌 Description
 
@@ -12,11 +11,6 @@
 
 ---
 
-## 📸 Aperçu
-
-![Aperçu Interface](static/screenshot_home.png)
-
----
 
 ## 🛠️ Fonctionnalités
 
