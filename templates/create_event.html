@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Créer un événement</h2>
+
+<form method="POST">
+    <label>Titre :</label><br>
+    <input type="text" name="titre" required><br><br>
+
+    <label>Date :</label><br>
+    <input type="text" name="date" required><br><br>
+
+    <label>Description :</label><br>
+    <textarea name="description" required></textarea><br><br>
+
+    <label>Adresse :</label><br>
+    <input type="text" name="adresse" required><br><br>
+
+    <label>Prix :</label><br>
+    <input type="text" name="prix" required><br><br>
+
+    <label>VIP :</label>
+    <input type="checkbox" name="vip"><br><br>
+
+    <label>Nombre d'invités :</label><br>
+    <input type="number" name="nb_invites" required><br><br>
+
+    <label>Privé :</label>
+    <input type="checkbox" name="prive"><br><br>
+
+    <button type="submit">Créer</button>
+</form>
+{% endblock %}

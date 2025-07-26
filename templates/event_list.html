@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Mes événements</h2>
+
+{% if events %}
+<ul>
+    {% for event in events %}
+    <li>
+        <strong>{{ event.title }}</strong> - {{ event.details }}
+        <form method="POST" action="{{ url_for('delete_event', event_id=event.id) }}" style="display:inline;">
+            <button type="submit">Supprimer</button>
+        </form>
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>Vous n'avez créé aucun événement.</p>
+{% endif %}
+
+<a href="{{ url_for('dashboard') }}">Retour au tableau de bord</a>
+{% endblock %}

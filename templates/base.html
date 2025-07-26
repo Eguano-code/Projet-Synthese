@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Plateforme ME - Simplifiez la gestion</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #6794aa;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 40px;
+        }
+
+        .logo-container {
+            flex-shrink: 0;
+        }
+
+        .logo {
+            height: 100px;
+            width: auto;
+        }
+
+        .header-title {
+            flex-grow: 1;
+            text-align: center;
+            margin-left: -100px; /* compense la largeur du logo pour un vrai centrage */
+        }
+
+        h1 {
+            font-size: 28px;
+            margin: 0;
+            color: #8e4141;
+        }
+
+        nav {
+            text-align: center;
+            margin: 10px 0 20px 0;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        hr {
+            margin: 0 40px 20px 40px;
+            border: 0;
+            border-top: 1px solid #ccc;
+        }
+
+        .content {
+            padding: 0 40px;
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo-container">
+        <img src="{{ url_for('static', filename='Logo_plateforme.png') }}" alt="Logo Plateforme" class="logo">
+    </div>
+    <div class="header-title">
+        <h1>Plateforme ME - Simplifiez la gestion. Réussissez vos événements.</h1>
+    </div>
+</header>
+
+<hr>
+
+<nav>
+<a href="{{ url_for('register') }}">Créer un compte Administrateur</a> |
+<a href="{{ url_for('register_participant') }}">Créer un compte Participant</a>
+
+</nav>
+
+<div class="content">
+    {% block content %}{% endblock %}
+</div>
+
+</body>
+</html>
