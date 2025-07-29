@@ -1,0 +1,73 @@
+/* ======== STYLE GLOBAL ======== */
+body {
+    background-color: #759ee6;
+    color: #1e1e1e;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* ======== BARRE DE NAVIGATION ======== */
+.navbar {
+    background-color: #2054a2;
+    border-bottom: 1px solid #f15af4;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar img {
+    height: 40px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links a {
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.nav-links a:hover {
+    text-decoration: underline;
+}
+
+/* ======== TITRES ET CONTENU ======== */
+h1, h2, h3 {
+    color: #d35400;
+    margin-bottom: 10px;
+}
+
+.container {
+    padding: 40px 30px;
+    max-width: 1000px;
+    margin: auto;
+}
+
+/* ======== BOUTONS ======== */
+button, .btn {
+    background-color: #d35400;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover, .btn:hover {
+    background-color: #e67e22;
+}
+
+/* ======== FORMULAIRES ======== */
+input, select, textarea {
+    padding: 8px;
+    width: 100%;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}

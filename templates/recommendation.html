@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Formulaire de Recommandation</h2>
+  <form method="POST">
+    <div class="mb-3">
+      <label for="nom" class="form-label">Nom</label>
+      <input type="text" class="form-control" id="nom" name="nom" required>
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">Adresse courriel</label>
+      <input type="email" class="form-control" id="email" name="email" required>
+    </div>
+    <div class="mb-3">
+      <label for="preferences" class="form-label">Préférences</label>
+      <textarea class="form-control" id="preferences" name="preferences" rows="3" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Soumettre</button>
+  </form>
+
+  {% if confirmation %}
+    <div class="alert alert-success mt-4" role="alert">
+      Je veux une recommandation selon mes informations.
+    </div>
+  {% endif %}
+</div>
+{% endblock %}
