@@ -1,16 +1,68 @@
 {% extends "base.html" %}
 {% block content %}
-<h2>Créer un compte organisateur</h2>
-<form method="POST">
-    <label for="nom">Nom :</label><br>
-    <input type="text" name="nom" required><br><br>
+<h2>Créer un compte</h2>
 
-    <label for="email">Email :</label><br>
-    <input type="email" name="email" required><br><br>
+<div class="formulaire-container">
+    <h2 class="formulaire-titre">Formulaire de création du compte</h2>
+    <form method="POST" class="formulaire-creation">
+        <label for="nom">Nom :</label>
+        <input type="text" name="nom" class="champ-formulaire" required>
 
-    <label for="mot_de_passe">Mot de passe :</label><br>
-    <input type="password" name="mot_de_passe" required><br><br>
+        <label for="prenom">Prénom :</label>
+        <input type="text" name="prenom" class="champ-formulaire" required>
 
-    <button type="submit">S'inscrire</button>
-</form>
+        <label for="adresse">Adresse :</label>
+        <input type="text" name="adresse" class="champ-formulaire" required>
+
+        <label for="telephone">Téléphone :</label>
+        <input type="text" name="telephone" class="champ-formulaire" required>
+
+        <label for="naissance">Date de Naissance :</label>
+        <input type="date" name="naissance" class="champ-formulaire" required>
+
+        <label for="email">Email :</label>
+        <input type="email" name="email" class="champ-formulaire" required>
+
+        <label for="mot_de_passe">Mot de passe :</label>
+        <input type="password" name="mot_de_passe" class="champ-formulaire" required>
+
+        <label for="categorie">Catégorie de compte :</label>
+        <select name="categorie" class="champ-formulaire" required>
+            <option value="">-- Choisir une catégorie --</option>
+            <option value="Organisateur">Organisateur</option>
+            <option value="Participant">Participant</option>
+        </select>
+
+        <label for="interets">Centres d'intérêt :</label>
+        <div class="interets-checkboxes">
+            <label><input type="checkbox" name="interets" value="Musique"> Musique</label>
+            <label><input type="checkbox" name="interets" value="Cuisine"> Cuisine</label>
+            <label><input type="checkbox" name="interets" value="Sport"> Sport</label>
+            <label><input type="checkbox" name="interets" value="Voyage"> Voyage</label>
+            <label><input type="checkbox" name="interets" value="Lecture"> Lecture</label>
+            <label><input type="checkbox" name="interets" value="Technologie"> Technologie</label>
+            <label><input type="checkbox" name="interets" value="Art"> Art</label>
+        </div>
+
+        <label for="autre_interet">Autre (spécifiez) :</label>
+        <input type="text" name="autre_interet" class="champ-formulaire">
+
+        <div class="boutons-formulaire">
+            <button type="submit" class="btn btn-success">Créer Compte</button>
+            <a href="/" class="btn btn-danger">Annuler</a>
+        </div>
+    </form>
+</div>
+
+{% if session.get('user_type') == 'Participant' %}
+    <div class="dashboard-participant">
+        <h3>Bienvenue {{ session['user'] }} !</h3>
+        <ul>
+            <li><a href="{{ url_for('participant_tickets') }}">🎟️ Mes billets</a></li>
+            <li><a href="{{ url_for('participant_invoices') }}">🧾 Mes factures</a></li>
+            <li><a href="{{ url_for('participant_events') }}">📅 Événements auxquels je suis inscrit</a></li>
+        </ul>
+    </div>
+{% endif %}
+
 {% endblock %}

@@ -37,35 +37,21 @@ def payment():
     return render_template('payment.html')
 
 # ✅ Route : Création de compte organisateur
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
         nom = request.form['nom']
         email = request.form['email']
         mot_de_passe = request.form['mot_de_passe']
+        # 🔁 Ajoute ici la logique pour enregistrer le compte...
 
-        existing = Organisateur.query.filter_by(email=email).first()
-        if existing:
-            return "Un compte avec cet email existe déjà."
+        # 🔐 Exemple d’identifiant : l’email (ou une valeur retournée depuis MySQL)
+        identifiant = email
 
-        new_org = Organisateur(nom=nom, email=email, mot_de_passe=mot_de_passe)
-        db.session.add(new_org)
-        db.session.commit()
-        return redirect(url_for('login'))
+        return render_template('confirmation.html', identifiant=identifiant)
 
     return render_template('register.html')
-
-# ✅ Route : Création de compte participant
-@app.route('/register_participant', methods=['GET', 'POST'])
-def register_participant():
-    if request.method == 'POST':
-        nom = request.form['nom']
-        email = request.form['email']
-        mot_de_passe = request.form['mot_de_passe']
-        # À implémenter : enregistrement du participant
-        return redirect(url_for('login'))
-
-    return render_template('register_participant.html')
 
 # ✅ Route : Connexion
 @app.route('/login', methods=['GET', 'POST'])
@@ -108,6 +94,71 @@ def event_list():
         return redirect(url_for('dashboard'))
 
     return render_template('create_event.html')
+
+# ✅ Mot de pass oublié
+
+@app.route('/forgot_password', methods=['GET', 'POST'])
+def forgot_password():
+    if request.method == 'POST':
+        email = request.form['email']
+        cursor.execute("SELECT * FROM organisateurs WHERE email=%s", (email,))
+        user = cursor.fetchone()
+        if user:
+            return redirect(url_for('reset_password', email=email))
+        else:
+            return "Email non trouvé."
+    return render_template('forgot_password.html')
+
+@app.route('/reset_password', methods=['GET', 'POST'])
+def reset_password():
+    email = request.args.get('email') or request.form.get('email')
+    if request.method == 'POST':
+        new_password = request.form['new_password']
+        confirm_password = request.form['confirm_password']
+
+        if new_password != confirm_password:
+            return "Les mots de passe ne correspondent pas."
+
+        cursor.execute("UPDATE organisateurs SET mot_de_passe=%s WHERE email=%s", (new_password, email))
+        conn.commit()
+        return redirect(url_for('login'))
+
+    return render_template('reset_password.html', email=email)
+
+# ✅ Création d'événement
+@app.route('/create_event', methods=['GET', 'POST'])
+def create_event():
+    if request.method == 'POST':
+        # Tu récupères les données ici
+        code = request.form['code']
+        titre = request.form['titre']
+        photo = request.files['photo']
+        nb_places = request.form['nb_places']
+        debut = request.form['debut']
+        fin = request.form['fin']
+        lien = request.form['lien']
+        statut = request.form['statut']
+        description = request.form['description']
+
+        # Logique d'enregistrement à la BDD ou en local
+        # ➕ à implémenter : stockage image, insertion SQL
+
+        return render_template('create_event.html', success=True)
+
+    return render_template('create_event.html', success=False)
+
+@app.route('/participant/tickets')
+def participant_tickets():
+    return render_template('participant_tickets.html')
+
+@app.route('/participant/invoices')
+def participant_invoices():
+    return render_template('participant_invoices.html')
+
+@app.route('/participant/events')
+def participant_events():
+    return render_template('participant_events.html')
+
 
 
 # =========================

@@ -22,25 +22,52 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ url_for('home') }}">Accueil</a>
             </li>
+
+            {% if session.get('user_type') == 'Organisateur' %}
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="evenementsDropdown" role="button"
                    data-bs-toggle="dropdown" aria-expanded="false">
                     Événements
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="evenementsDropdown">
-                    <li><a class="dropdown-item" href="{{ url_for('dashboard') }}">Tableau de bord</a></li>
                     <li><a class="dropdown-item" href="{{ url_for('event_list') }}">Voir mes événements</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('create_event') }}">Créer un événement</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('event_list') }}">Gérer un événement</a></li>
                 </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('dashboard') }}">Tableau de bord</a>
+            </li>
 
-                <li class="nav-item">
-    <a class="nav-link" href="{{ url_for('recommender') }}">🔍 Recommandation intelligente</a>
-</li>
+            {% elif session.get('user_type') == 'Participant' %}
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="evenementsDropdown" role="button"
+                   data-bs-toggle="dropdown" aria-expanded="false">
+                    Événements
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="evenementsDropdown">
+                    <li><a class="dropdown-item" href="{{ url_for('participant_events') }}">Historique de mes événements</a></li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="billetsDropdown" role="button"
+                   data-bs-toggle="dropdown" aria-expanded="false">
+                    Billet
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="billetsDropdown">
+                    <li><a class="dropdown-item" href="{{ url_for('participant_tickets') }}">Mes billets</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('participant_invoices') }}">Factures</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('dashboard') }}">Tableau de bord</a>
+            </li>
+            {% endif %}
 
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('recommender') }}">🔍 Recommandation intelligente</a>
             </li>
         </ul>
-
-
-        
 
         <ul class="navbar-nav">
             {% if not session.get('user') %}
@@ -51,9 +78,6 @@
                     <a class="nav-link" href="{{ url_for('register') }}">Créer un compte</a>
                 </li>
             {% else %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('dashboard') }}">Mon tableau de bord</a>
-                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('logout') }}">Déconnexion</a>
                 </li>

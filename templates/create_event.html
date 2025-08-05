@@ -2,31 +2,48 @@
 {% block content %}
 <h2>Créer un événement</h2>
 
-<form method="POST">
-    <label>Titre :</label><br>
-    <input type="text" name="titre" required><br><br>
+<div class="formulaire-container">
+    <h2 class="formulaire-titre">Formulaire de création d'événement</h2>
+    <form method="POST" class="formulaire-creation" enctype="multipart/form-data">
 
-    <label>Date :</label><br>
-    <input type="text" name="date" required><br><br>
+        <label for="code">Code :</label>
+        <input type="text" name="code" class="champ-formulaire" required>
 
-    <label>Description :</label><br>
-    <textarea name="description" required></textarea><br><br>
+        <label for="titre">Titre :</label>
+        <input type="text" name="titre" class="champ-formulaire" required>
 
-    <label>Adresse :</label><br>
-    <input type="text" name="adresse" required><br><br>
+        <label for="photo">Photo :</label>
+        <input type="file" name="photo" accept="image/*" class="champ-formulaire">
 
-    <label>Prix :</label><br>
-    <input type="text" name="prix" required><br><br>
+        <label for="nb_places">Nombre de places :</label>
+        <input type="number" name="nb_places" class="champ-formulaire" required>
 
-    <label>VIP :</label>
-    <input type="checkbox" name="vip"><br><br>
+        <label for="debut">Date de début :</label>
+        <input type="date" name="debut" class="champ-formulaire" required>
 
-    <label>Nombre d'invités :</label><br>
-    <input type="number" name="nb_invites" required><br><br>
+        <label for="fin">Date de fin :</label>
+        <input type="date" name="fin" class="champ-formulaire" required>
 
-    <label>Privé :</label>
-    <input type="checkbox" name="prive"><br><br>
+        <label for="lien">Lien (URL) :</label>
+        <input type="url" name="lien" class="champ-formulaire">
 
-    <button type="submit">Créer</button>
-</form>
+        <label for="statut">Statut :</label>
+        <select name="statut" class="champ-formulaire" required>
+            <option value="Disponible">Disponible</option>
+            <option value="Complet">Complet</option>
+        </select>
+
+        <label for="description">Description :</label>
+        <textarea name="description" class="champ-formulaire" rows="4"></textarea>
+
+        <div class="boutons-formulaire">
+            <button type="submit" class="btn btn-success">Créer Événement</button>
+            <a href="{{ url_for('dashboard') }}" class="btn btn-danger">Annuler</a>
+        </div>
+
+        {% if success %}
+            <p class="success-message">✅ L'événement a été creé avec succès !</p>
+        {% endif %}
+    </form>
+</div>
 {% endblock %}

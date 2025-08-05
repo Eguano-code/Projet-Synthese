@@ -7,7 +7,11 @@
 
     <label>Mot de passe :</label><br>
     <input type="password" name="mot_de_passe" required><br><br>
+    <p style="margin-top: 10px;">
+    <a href="{{ url_for('forgot_password') }}">Mot de passe oublié ?</a>
+</p>
 
     <button type="submit">Se connecter</button>
+    <button type="submit">Annuler</button>
 </form>
 {% endblock %}
