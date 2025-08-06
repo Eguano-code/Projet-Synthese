@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <h2 class="text-center mt-4">Modifier les détails de l'événement</h2>
+    <form method="POST" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="code" class="form-label">Code de l'événement</label>
+            <input type="text" class="form-control" name="code" required>
+        </div>
+        <div class="mb-3">
+            <label for="titre" class="form-label">Titre</label>
+            <input type="text" class="form-control" name="titre" required>
+        </div>
+        <div class="mb-3">
+            <label for="photo" class="form-label">Photo</label>
+            <input type="file" class="form-control" name="photo">
+        </div>
+        <div class="mb-3">
+            <label for="nb_places" class="form-label">Nombre de places</label>
+            <input type="number" class="form-control" name="nb_places" required>
+        </div>
+        <div class="mb-3">
+            <label for="debut" class="form-label">Début</label>
+            <input type="datetime-local" class="form-control" name="debut" required>
+        </div>
+        <div class="mb-3">
+            <label for="fin" class="form-label">Fin</label>
+            <input type="datetime-local" class="form-control" name="fin" required>
+        </div>
+        <div class="mb-3">
+            <label for="lien" class="form-label">Lien</label>
+            <input type="url" class="form-control" name="lien">
+        </div>
+        <div class="mb-3">
+            <label for="statut" class="form-label">Statut</label>
+            <select class="form-select" name="statut">
+                <option value="Actif">Actif</option>
+                <option value="Inactif">Inactif</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" name="description" rows="3"></textarea>
+        </div>
+        <div class="d-flex justify-content-between">
+            <button type="submit" name="action" value="modifier" class="btn btn-primary">Modifier</button>
+            <button type="submit" name="action" value="supprimer" class="btn btn-danger">Supprimer</button>
+            <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">Annuler</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

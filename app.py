@@ -159,6 +159,54 @@ def participant_invoices():
 def participant_events():
     return render_template('participant_events.html')
 
+# Page pour entrer le code de l'événement à gérer
+@app.route('/gestion_event', methods=['GET', 'POST'])
+def gestion_event():
+    if request.method == 'POST':
+        code = request.form['event_code']
+        action = request.form['action']
+
+        if action == 'modifier':
+            return redirect(url_for('modifier_event', code=code))
+        elif action == 'valider':
+            return "Événement validé avec succès !"
+
+    return render_template('event_management.html')
+
+# Page pour modifier les détails d’un événement
+@app.route('/modifier_event/<code>', methods=['GET', 'POST'])
+def modifier_event(code):
+    if request.method == 'POST':
+        # Récupération des champs du formulaire
+        titre = request.form['titre']
+        date = request.form['date']
+        nb_places = request.form['nb_places']
+        lieu = request.form['lieu']
+        statut = request.form['statut']
+        description = request.form['description']
+        action = request.form['action']
+
+        if action == 'modifier':
+            # Mettre à jour l'événement dans la BDD
+            # Exemple : db.update_event(code, ...)
+            return "Événement modifié avec succès !"
+
+        elif action == 'supprimer':
+            # Supprimer l'événement de la BDD
+            # Exemple : db.delete_event(code)
+            return "Événement supprimé avec succès !"
+
+        elif action == 'valider':
+            return "Action validée pour l'événement."
+
+    # GET : afficher les infos actuelles
+    return render_template('modifier_event.html', code=code)
+
+@app.context_processor
+def inject_navigation_links():
+    return dict(gestion_event_link=url_for('gestion_event'))
+
+
 
 
 # =========================
