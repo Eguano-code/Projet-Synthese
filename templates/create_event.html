@@ -6,41 +6,71 @@
     <h2 class="formulaire-titre">Formulaire de création d'événement</h2>
     <form method="POST" class="formulaire-creation" enctype="multipart/form-data">
 
-        <label for="code">Code :</label>
-        <input type="text" name="code" class="champ-formulaire" required>
+       <label for="tarif_type">Tarif :</label>
+<select name="tarif_type" id="tarif_type" class="champ-formulaire" required>
+    <option value="gratuit">Gratuit</option>
+    <option value="payant">Payant</option>
+</select>
 
-        <label for="titre">Titre :</label>
-        <input type="text" name="titre" class="champ-formulaire" required>
+<div id="tarif_montant_container" style="display: none;">
+    <label for="tarif_montant">Montant (en $) :</label>
+    <input type="number" step="0.01" name="tarif_montant" id="tarif_montant" class="champ-formulaire">
+</div>
 
-        <label for="photo">Photo :</label>
-        <input type="file" name="photo" accept="image/*" class="champ-formulaire">
+<!-- Le reste de ton formulaire -->
+<label for="code">Code :</label>
+<input type="text" name="code" class="champ-formulaire" required>
 
-        <label for="nb_places">Nombre de places :</label>
-        <input type="number" name="nb_places" class="champ-formulaire" required>
+<label for="titre">Titre :</label>
+<input type="text" name="titre" class="champ-formulaire" required>
 
-        <label for="debut">Date de début :</label>
-        <input type="date" name="debut" class="champ-formulaire" required>
+<!-- create_event.html : juste avant la description -->
+<label for="tags">Catégories / mots-clés (séparés par virgules)</label>
+<input type="text" name="tags" class="champ-formulaire" placeholder="IA, musique, sport">
 
-        <label for="fin">Date de fin :</label>
-        <input type="date" name="fin" class="champ-formulaire" required>
 
-        <label for="lien">Lien (URL) :</label>
-        <input type="url" name="lien" class="champ-formulaire">
+<label for="photo">Photo :</label>
+<input type="file" name="photo" accept="image/*" class="champ-formulaire">
 
-        <label for="statut">Statut :</label>
-        <select name="statut" class="champ-formulaire" required>
-            <option value="Disponible">Disponible</option>
-            <option value="Complet">Complet</option>
-        </select>
+<label for="nb_places">Nombre de places :</label>
+<input type="number" name="nb_places" class="champ-formulaire" required>
 
-        <label for="description">Description :</label>
-        <textarea name="description" class="champ-formulaire" rows="4"></textarea>
+<label for="debut">Date de début :</label>
+<input type="date" name="debut" class="champ-formulaire" required>
 
-        <div class="boutons-formulaire">
-            <button type="submit" class="btn btn-success">Créer Événement</button>
-            <a href="{{ url_for('dashboard') }}" class="btn btn-danger">Annuler</a>
-        </div>
+<label for="fin">Date de fin :</label>
+<input type="date" name="fin" class="champ-formulaire" required>
 
+<label for="lien">Lien (URL) :</label>
+<input type="url" name="lien" class="champ-formulaire">
+
+<label for="statut">Statut :</label>
+<select name="statut" class="champ-formulaire" required>
+    <option value="Disponible">Disponible</option>
+    <option value="Complet">Complet</option>
+</select>
+
+<label for="description">Description :</label>
+<textarea name="description" class="champ-formulaire" rows="4"></textarea>
+
+<div class="boutons-formulaire">
+    <button type="submit" class="btn btn-success">Créer Événement</button>
+    <a href="{{ url_for('dashboard') }}" class="btn btn-danger">Annuler</a>
+</div>
+
+<!-- Script pour afficher / cacher le champ montant -->
+<script>
+document.getElementById('tarif_type').addEventListener('change', function () {
+    const montantContainer = document.getElementById('tarif_montant_container');
+    if (this.value === 'payant') {
+        montantContainer.style.display = 'block';
+        document.getElementById('tarif_montant').required = true;
+    } else {
+        montantContainer.style.display = 'none';
+        document.getElementById('tarif_montant').required = false;
+    }
+});
+</script>
         {% if success %}
             <p class="success-message">✅ L'événement a été creé avec succès !</p>
         {% endif %}

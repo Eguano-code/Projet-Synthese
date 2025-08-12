@@ -1,27 +1,72 @@
 {% extends "base.html" %}
+
 {% block content %}
-<div class="container mt-5">
-  <h2 class="text-center mb-4">Formulaire de Recommandation</h2>
-  <form method="POST">
+<div class="container mt-5 recommendation-container">
+  <h2 class="text-center mb-4">🤖 Recommandation intelligente</h2>
+  <form method="POST" class="mx-auto" style="max-width: 900px;">
     <div class="mb-3">
       <label for="nom" class="form-label">Nom</label>
       <input type="text" class="form-control" id="nom" name="nom" required>
     </div>
+
     <div class="mb-3">
       <label for="email" class="form-label">Adresse courriel</label>
       <input type="email" class="form-control" id="email" name="email" required>
     </div>
+
     <div class="mb-3">
-      <label for="preferences" class="form-label">Préférences</label>
-      <textarea class="form-control" id="preferences" name="preferences" rows="3" required></textarea>
+      <label for="preferences" class="form-label">Préférences (mots-clés)</label>
+      <textarea class="form-control" id="preferences" name="preferences" rows="3" required
+        placeholder="Exemples : IA, musique, conférences, sport...">{{ prefs_text or '' }}</textarea>
+      <div class="form-text">Saisis quelques mots-clés séparés par des espaces.</div>
     </div>
+
     <button type="submit" class="btn btn-primary">Soumettre</button>
   </form>
 
   {% if confirmation %}
-    <div class="alert alert-success mt-4" role="alert">
-      Je veux une recommandation selon mes informations.
+    <div class="alert alert-success mt-4 mx-auto" style="max-width:900px;" role="alert">
+      Merci&nbsp;! Voici des suggestions basées sur vos préférences.
     </div>
+  {% endif %}
+
+  {% if suggestions and suggestions|length > 0 %}
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3 mt-3">
+    {% for ev, score in suggestions %}
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">{{ ev.titre }}</h5>
+            <p class="card-text small text-muted mb-1">
+              Code : <strong>{{ ev.code }}</strong> •
+              Statut : <strong>{{ ev.statut }}</strong>
+            </p>
+            <p class="card-text">
+              {{ ev.description or "Pas de description." }}
+            </p>
+            <p class="mb-2">
+              {% set is_free = (ev.tarif_type == 'gratuit') or (ev.tarif_montant in ['0','0.0','', 0]) %}
+              {% if is_free %}
+                <span class="badge bg-success">Gratuit</span>
+              {% else %}
+                <span class="badge bg-warning text-dark">
+                  {{ ev.tarif_montant }} $
+                </span>
+              {% endif %}
+            </p>
+            <a class="btn btn-outline-primary btn-sm"
+               href="{{ url_for('vente') }}">Participer</a>
+          </div>
+          <div class="card-footer small text-muted">
+            Score de correspondance : {{ '%.2f'|format(score) }}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  {% elif confirmation %}
+    <p class="text-center mt-4">Aucune correspondance trouvée. Essaie d’autres mots-clés.</p>
   {% endif %}
 </div>
 {% endblock %}
+

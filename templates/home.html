@@ -1,8 +1,36 @@
 {% extends "base.html" %}
 
+{% set body_class = "home-page" %}
+
 {% block content %}
-<header style="text-align: center; margin-top: 20px;">
-   
 
+<!-- Section pleine page avec fond et message de bienvenue -->
+<section class="hero-section">
+    <div class="overlay">
+        <div class="container text-center text-light">
+            <h1 class="display-3 fw-bold mb-4">Bienvenue sur la Plateforme ME</h1>
+            <p class="lead mb-5" style="max-width: 800px; margin: auto;">
+                La solution moderne pour gérer vos événements, simplifier vos paiements, organiser vos participants 
+                et offrir à vos clients une expérience fluide et intelligente.
+            </p>
+            <a href="{{ url_for('register') }}" class="btn btn-warning btn-lg me-3">Créer un compte</a>
+            <a href="{{ url_for('login') }}" class="btn btn-outline-light btn-lg">Se connecter</a>
+        </div>
+    </div>
+</section>
 
+<!-- Notre mission -->
+<section class="mission-section py-5">
+    <div class="container text-center text-light">
+        <h2 class="mb-4 text-warning">Notre mission</h2>
+        <p class="lead mx-auto" style="max-width: 900px;">
+            Ce projet a pour objectif de développer une application web complète dédiée à la gestion d’événements. 
+            L’application offrira deux interfaces principales : une interface destinée aux gestionnaires permettant un 
+            contrôle centralisé de l’organisation d’événements (création, billetterie, paiements, gestion des participants), 
+            et une interface client intégrant un formulaire basé sur l’intelligence artificielle de recommandations personnalisées. 
+            Ce système vise à moderniser et automatiser la gestion événementielle tout en offrant une expérience utilisateur 
+            fluide et intelligente.
+        </p>
+    </div>
+</section>
 {% endblock %}
