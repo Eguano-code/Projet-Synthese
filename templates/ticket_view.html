@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container my-5">
+  <div class="alert alert-info fw-bold">
+    ⚠️ Pour annuler, vous devez le faire <strong>au moins 48 heures</strong> avant le début de l’événement.
+  </div>
+
+  <div class="card shadow">
+    <div class="card-body p-4">
+      <div class="row g-4 align-items-center">
+        <div class="col-md-4 text-center">
+          <img src="{{ qr_data_uri }}" alt="QR code billet" class="img-fluid border rounded p-2">
+          <div class="small mt-2">
+            Vérification : <a href="{{ verify_url }}" target="_blank">{{ verify_url }}</a>
+          </div>
+        </div>
+
+        <div class="col-md-8">
+          <h3 class="mb-3">Billet — {{ ticket.titre }}</h3>
+
+          <dl class="row mb-0">
+            <dt class="col-sm-4">Code billet</dt>
+            <dd class="col-sm-8">{{ ticket.id }}</dd>
+
+            <dt class="col-sm-4">Code événement</dt>
+            <dd class="col-sm-8">{{ ticket.code }}</dd>
+
+            <dt class="col-sm-4">Début</dt>
+            <dd class="col-sm-8">{{ ticket.debut }}</dd>
+
+            <dt class="col-sm-4">Fin</dt>
+            <dd class="col-sm-8">{{ ticket.fin }}</dd>
+
+            <dt class="col-sm-4">Statut</dt>
+            <dd class="col-sm-8">{{ ticket.statut }}</dd>
+
+            {% if ticket.lien %}
+            <dt class="col-sm-4">Lien</dt>
+            <dd class="col-sm-8"><a href="{{ ticket.lien }}" target="_blank">{{ ticket.lien }}</a></dd>
+            {% endif %}
+
+            <dt class="col-sm-4">Tarif</dt>
+            <dd class="col-sm-8">
+              {% if ticket.tarif_type == 'payant' %}
+                Payant — {{ ticket.tarif_montant }} $
+              {% else %}
+                Gratuit
+              {% endif %}
+            </dd>
+          </dl>
+        </div>
+      </div>
+
+      <hr class="my-4">
+
+      <div class="d-flex gap-2">
+        <button class="btn btn-outline-secondary" onclick="window.print()">Imprimer</button>
+
+        {% if can_cancel and ticket.statut != 'Annulé' %}
+          <form method="POST" action="{{ url_for('ticket_cancel', ticket_id=ticket.id) }}">
+            <button type="submit" class="btn btn-danger">Annuler mon billet</button>
+          </form>
+        {% else %}
+          <button class="btn btn-danger" disabled>Annulation indisponible</button>
+        {% endif %}
+
+        <a class="btn btn-secondary" href="{{ url_for('home') }}">Retour à l’accueil</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

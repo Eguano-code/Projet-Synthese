@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container my-4">
+  <h2 class="mb-4">Tableau de bord — Participant</h2>
+
+  <div class="row g-4">
+    <!-- 1) Infos participant + modification -->
+    <div class="col-12">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Mes informations</h5>
+          <form class="row g-3" method="POST" action="{{ url_for('participant_profile_update') }}">
+            <div class="col-md-6">
+              <label class="form-label">Nom</label>
+              <input class="form-control" name="nom" value="{{ profile.nom }}">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Email</label>
+              <input class="form-control" type="email" name="email" value="{{ profile.email }}">
+            </div>
+            <div class="col-12">
+              <button class="btn btn-primary">Enregistrer</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2) Historique des événements (tickets) -->
+    <div class="col-12">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Mes événements (billets)</h5>
+          {% if tickets and tickets|length %}
+          <div class="table-responsive">
+            <table class="table table-sm align-middle">
+              <thead>
+                <tr>
+                  <th>Billet</th><th>Événement</th><th>Code</th><th>Créé le</th><th>Statut</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for t in tickets %}
+                <tr>
+                  <td>{{ t.id }}</td>
+                  <td>{{ t.titre }}</td>
+                  <td>{{ t.code }}</td>
+                  <td>{{ t.created_at }}</td>
+                  <td><span class="badge bg-success">{{ t.statut }}</span></td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          {% else %}
+            <p class="text-muted m-0">Aucun billet pour le moment.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <!-- 3) Historique des transactions -->
+    <div class="col-12">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Historique des transactions</h5>
+          {% if transactions and transactions|length %}
+          <div class="table-responsive">
+            <table class="table table-sm align-middle">
+              <thead>
+                <tr>
+                  <th>Billet</th><th>Événement</th><th>Montant</th><th>Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for tr in transactions %}
+                <tr>
+                  <td>{{ tr.ticket_id }}</td>
+                  <td>{{ tr.event }}</td>
+                  <td>{{ "%.2f"|format(tr.amount) }} $</td>
+                  <td>{{ tr.date }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          {% else %}
+            <p class="text-muted m-0">Aucune transaction payante.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Désactivation du compte -->
+    <div class="col-12">
+      <div class="card border-danger">
+        <div class="card-body">
+          <h5 class="card-title text-danger">Désactiver mon compte</h5>
+          <p class="mb-3"><strong>Attention :</strong> cette action désactivera votre compte et vous serez déconnecté.</p>
+          <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmDeactivate">
+            Désactiver le compte
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de confirmation -->
+<div class="modal fade" id="confirmDeactivate" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Confirmer la désactivation</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+      </div>
+      <div class="modal-body">
+        Êtes-vous certain de vouloir désactiver votre compte ? Cette action est irréversible.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        <form method="POST" action="{{ url_for('participant_deactivate') }}">
+          <button type="submit" class="btn btn-danger">Oui, désactiver</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

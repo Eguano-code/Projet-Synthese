@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- Bandeau d’intro -->
+<section class="py-5 bg-light rounded-3 shadow-sm">
+  <div class="container">
+    <div class="row align-items-center gy-4">
+      <div class="col-lg-7">
+        <h1 class="mb-3 text-warning">À propos de Plateforme ME</h1>
+        <p class="lead mb-0">
+          Nous concevons une application web complète pour <strong>créer, gérer et faire vivre vos événements</strong> —
+          avec billetterie, paiements sécurisés et recommandations intelligentes pour vos participants.
+        </p>
+      </div>
+      <div class="col-lg-5 text-lg-end">
+          <div class="btn-container">
+    <a href="{{ url_for('register') }}" class="btn btn-primary btn-spacing">Créer un compte</a>
+    <a href="{{ url_for('create_event') }}" class="btn btn-primary btn-spacing">Créer un événement</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Les piliers du projet -->
+<section class="container my-5">
+  <div class="text-center mb-4">
+    <h2 class="mb-2">Notre projet, vos besoins</h2>
+    <p class="text-muted">Voici les fonctionnalités essentielles que nous apportons.</p>
+  </div>
+
+  <div class="row g-4">
+    <!-- 1 -->
+    <div class="col-md-6 col-xl-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <div class="d-flex align-items-center mb-3">
+            <i class="fa-solid fa-gauge-high fa-xl text-warning me-3"></i>
+            <h5 class="card-title mb-0">Tableau de bord organisateur</h5>
+          </div>
+          <p class="card-text">
+            Interface dédiée aux gestionnaires pour administrer les <strong>événements</strong>, les
+            <strong>participants</strong>, la <strong>billetterie</strong> et les <strong>paiements</strong>,
+            le tout depuis un espace centralisé.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2 -->
+    <div class="col-md-6 col-xl-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <div class="d-flex align-items-center mb-3">
+            <i class="fa-solid fa-wand-magic-sparkles fa-xl text-warning me-3"></i>
+            <h5 class="card-title mb-0">Interface client & IA</h5>
+          </div>
+          <p class="card-text">
+            Un formulaire <strong>intelligent</strong> de recommandation propose des événements adaptés
+            aux intérêts des participants, pour une expérience personnalisée.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3 -->
+    <div class="col-md-6 col-xl-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <div class="d-flex align-items-center mb-3">
+            <i class="fa-solid fa-calendar-check fa-xl text-warning me-3"></i>
+            <h5 class="card-title mb-0">Gestion d’événements</h5>
+          </div>
+          <p class="card-text">
+            Création, <strong>modification</strong> et <strong>suivi</strong> des événements : toutes les étapes
+            clés réunies pour vous faire gagner du temps.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4 -->
+    <div class="col-md-6 col-xl-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <div class="d-flex align-items-center mb-3">
+            <i class="fa-solid fa-users fa-xl text-warning me-3"></i>
+            <h5 class="card-title mb-0">Gestion des participants</h5>
+          </div>
+          <p class="card-text">
+            Inscription, suivi et <strong>gestion des informations</strong> des participants (module optionnel
+            selon les priorités du projet).
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5 -->
+    <div class="col-md-6 col-xl-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <div class="d-flex align-items-center mb-3">
+            <i class="fa-solid fa-ticket fa-xl text-warning me-3"></i>
+            <h5 class="card-title mb-0">Billetterie électronique</h5>
+          </div>
+          <p class="card-text">
+            Émission de <strong>billets numériques</strong> avec codes QR et <strong>validation rapide</strong>
+            à l’entrée pour fluidifier l’accès.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6 -->
+    <div class="col-md-6 col-xl-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <div class="d-flex align-items-center mb-3">
+            <i class="fa-solid fa-shield-halved fa-xl text-warning me-3"></i>
+            <h5 class="card-title mb-0">Paiements sécurisés</h5>
+          </div>
+          <p class="card-text">
+            Traitement des transactions <strong>sécurisé</strong>, suivi des revenus par événement
+            et visibilité claire sur vos ventes.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Appels à l’action -->
+<section class="container mb-5">
+  <div class="rounded-3 p-4 bg-dark text-light d-flex flex-column flex-md-row align-items-center justify-content-between">
+    <p class="mb-3 mb-md-0">
+      Envie d’essayer ? Lancez-vous en quelques clics et gérez vos premiers événements dès aujourd’hui.
+    </p>
+    <div>
+        <div class="btn-container">
+    <a href="{{ url_for('register') }}" class="btn btn-primary btn-spacing">Créer un compte</a>
+    <a href="{{ url_for('create_event') }}" class="btn btn-primary btn-spacing">Créer un événement</a>
+</div>
+
+    </div>
+  </div>
+</section>
+
+{% endblock %}

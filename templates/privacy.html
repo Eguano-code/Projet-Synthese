@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container my-5 text-light">
+    <h1 class="mb-4 text-warning">Politique de confidentialité</h1>
+
+    <p>Chez <strong>Plateforme ME</strong>, nous respectons et protégeons la vie privée de nos utilisateurs. Cette politique explique comment nous collectons, utilisons et protégeons vos données personnelles.</p>
+
+    <h3>1. Collecte des informations</h3>
+    <p>Nous recueillons uniquement les informations nécessaires pour fournir nos services, telles que votre nom, votre adresse e-mail, vos coordonnées et les données relatives à vos événements. Nous ne collectons pas d’informations sensibles sans votre consentement explicite.</p>
+
+    <h3>2. Utilisation des données</h3>
+    <p>Les données que vous fournissez sont utilisées pour :
+        <ul>
+            <li>Créer et gérer votre compte utilisateur</li>
+            <li>Faciliter la gestion et l’organisation de vos événements</li>
+            <li>Améliorer nos services et personnaliser votre expérience</li>
+            <li>Respecter nos obligations légales</li>
+        </ul>
+    </p>
+
+    <h3>3. Partage des données</h3>
+    <p>Vos informations ne sont jamais vendues. Elles peuvent être partagées uniquement avec :
+        <ul>
+            <li>Nos partenaires techniques strictement nécessaires au fonctionnement de la plateforme</li>
+            <li>Les autorités compétentes si la loi l’exige</li>
+        </ul>
+    </p>
+
+    <h3>4. Sécurité des données</h3>
+    <p>Nous mettons en œuvre des mesures techniques et organisationnelles pour protéger vos données contre tout accès non autorisé, perte ou divulgation.</p>
+
+    <h3>5. Vos droits</h3>
+    <p>Conformément à la réglementation, vous disposez d’un droit d’accès, de rectification, de suppression et de portabilité de vos données. Vous pouvez exercer ces droits en nous contactant à <a href="mailto:contact@evenements.com">contact@evenements.com</a>.</p>
+
+    <h3>6. Modifications de cette politique</h3>
+    <p>Cette politique peut être mise à jour pour refléter des changements dans nos pratiques ou la législation. Nous vous informerons en cas de modification importante.</p>
+
+    <p class="mt-4"><strong>Dernière mise à jour :</strong> {{ current_year }}</p>
+</div>
+{% endblock %}

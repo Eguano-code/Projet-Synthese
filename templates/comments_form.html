@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container my-5" style="max-width: 800px;">
+  <h2 class="mb-4 text-center">Laisser un commentaire</h2>
+  <p class="text-muted text-center mb-4">
+    Merci de partager votre avis. Vos retours nous aident à améliorer la plateforme et la qualité des événements.
+  </p>
+
+  <form method="POST" action="{{ url_for('comments_form') }}">
+    <!-- Code événement -->
+    <div class="mb-3">
+      <label class="form-label">Code de l’événement <span class="text-danger">*</span></label>
+      <input type="text" name="event_code" class="form-control" required>
+    </div>
+
+    <!-- Satisfaction -->
+    <div class="mb-3">
+      <label class="form-label">Niveau de satisfaction global</label>
+      <div class="d-flex flex-wrap gap-3">
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="satisfaction" value="5" id="sat5" checked>
+          <label class="form-check-label" for="sat5">Très satisfait</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="satisfaction" value="4" id="sat4">
+          <label class="form-check-label" for="sat4">Satisfait</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="satisfaction" value="3" id="sat3">
+          <label class="form-check-label" for="sat3">Neutre</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="satisfaction" value="2" id="sat2">
+          <label class="form-check-label" for="sat2">Insatisfait</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="satisfaction" value="1" id="sat1">
+          <label class="form-check-label" for="sat1">Très insatisfait</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q1 -->
+    <div class="mb-3">
+      <label class="form-label">1) Comment as-tu aimé l’événement ?</label>
+      <textarea name="q1" class="form-control" rows="2" placeholder="Ton avis..."></textarea>
+    </div>
+
+    <!-- Q2 -->
+    <div class="mb-3">
+      <label class="form-label">2) Voudrais-tu un autre événement de ce genre ?</label>
+      <div class="d-flex gap-3">
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="q2" value="Oui" id="q2oui" checked>
+          <label class="form-check-label" for="q2oui">Oui</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="q2" value="Non" id="q2non">
+          <label class="form-check-label" for="q2non">Non</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="mb-3">
+      <label class="form-label">3) Qu’est-ce que tu améliorerais ?</label>
+      <textarea name="q3" class="form-control" rows="2" placeholder="Tes suggestions..."></textarea>
+    </div>
+
+    <!-- Q4 -->
+    <div class="mb-4">
+      <label class="form-label">4) Commentaires et remarques personnelles</label>
+      <textarea name="q4" class="form-control" rows="3" placeholder="Libre expression..."></textarea>
+    </div>
+
+    <div class="d-flex justify-content-end gap-2">
+      <a href="{{ url_for('home') }}" class="btn btn-outline-secondary">Annuler</a>
+      <button type="submit" class="btn btn-primary">Envoyer</button>
+    </div>
+  </form>
+</div>
+
+{% endblock %}

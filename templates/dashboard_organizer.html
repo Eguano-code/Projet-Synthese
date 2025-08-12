@@ -1,0 +1,181 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row g-4 mt-2">
+  <!-- Mes informations -->
+  <div class="col-12 col-xl-6">
+    <div class="card shadow-sm h-100">
+      <div class="card-body">
+        <h5 class="card-title mb-3">Mes informations</h5>
+        <form method="POST" action="{{ url_for('organizer_profile_update') }}" class="row g-3">
+          <div class="col-12">
+            <label class="form-label">Nom</label>
+            <input type="text" name="nom" class="form-control" value="{{ session.get('user','') }}">
+          </div>
+          <div class="col-12">
+            <label class="form-label">Email</label>
+            <input type="email" name="email" class="form-control" value="{{ session.get('email','') }}">
+          </div>
+          <div class="col-12">
+            <label class="form-label">Nouveau mot de passe</label>
+            <input type="password" name="mot_de_passe" class="form-control" placeholder="Laisser vide pour ne pas changer">
+          </div>
+          <div class="col-12">
+            <button class="btn btn-primary">Enregistrer</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Zone dangereuse -->
+  <div class="col-12 col-xl-6">
+    <div class="card shadow-sm border-danger">
+      <div class="card-body">
+        <h5 class="card-title text-danger">Zone dangereuse</h5>
+        <p class="mb-3">La suppression du compte est <strong>définitive</strong>. Toutes les données associées pourront être perdues.</p>
+
+        <!-- Bouton qui ouvre un modal de confirmation -->
+        <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">
+          Supprimer mon compte
+        </button>
+
+        <!-- Modal Bootstrap -->
+        <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title text-danger">Confirmer la suppression</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+              </div>
+              <div class="modal-body">
+                Êtes-vous certain de vouloir supprimer votre compte organisateur ?  
+                <br><strong>Cette action est irréversible.</strong>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                <form method="POST" action="{{ url_for('organizer_delete') }}">
+                  <input type="hidden" name="confirm" value="OUI">
+                  <button class="btn btn-danger">Oui, supprimer définitivement</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Chart.js uniquement sur cette page -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+<div class="container my-4">
+  <h2 class="mb-4">Tableau de bord — Organisateur</h2>
+
+  <div class="row g-4">
+    <!-- 1) Taux de participants par événement -->
+    <div class="col-12 col-xl-6">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <h5 class="card-title">Participants par événement</h5>
+          <canvas id="chartParticipants" height="160"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2) Revenus par événement -->
+    <div class="col-12 col-xl-6">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <h5 class="card-title">Revenus par événement ($)</h5>
+          <canvas id="chartRevenue" height="160"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3) Derniers commentaires -->
+    <div class="col-12">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Derniers commentaires</h5>
+          {% if comments and comments|length > 0 %}
+            <div class="table-responsive">
+              <table class="table table-sm align-middle">
+                <thead>
+                  <tr>
+                    <th>Événement</th>
+                    <th>Auteur</th>
+                    <th>Commentaire</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for c in comments %}
+                  <tr>
+                    <td>{{ c.event }}</td>
+                    <td>{{ c.auteur }}</td>
+                    <td>{{ c.texte }}</td>
+                    <td>{{ c.date }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          {% else %}
+            <p class="text-muted m-0">Aucun commentaire pour l’instant.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const labels = {{ (labels|default([], true))|tojson|safe }};
+  const participants = {{ (participants|default([], true))|tojson|safe }};
+  const revenue = {{ (revenue|default([], true))|tojson|safe }};
+
+  const ctxP = document.getElementById('chartParticipants');
+  if (ctxP) {
+    new Chart(ctxP, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Participants',
+          data: participants
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: { y: { beginAtZero: true } }
+      }
+    });
+  }
+
+  const ctxR = document.getElementById('chartRevenue');
+  if (ctxR) {
+    new Chart(ctxR, {
+      type: 'doughnut',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Revenus',
+          data: revenue
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { position: 'bottom' } }
+      }
+    });
+  }
+});
+</script>
+
+{% endblock %}

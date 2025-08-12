@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container my-5" style="max-width:600px;">
+  <h2 class="mb-3">Participer à un événement</h2>
+  <p>Entrez le <strong>code de l’événement</strong> pour poursuivre.</p>
+
+  {% if error %}
+    <div class="alert alert-danger">{{ error }}</div>
+  {% endif %}
+
+  <form method="POST">
+    <label class="form-label" for="event_code">Code de l’événement</label>
+    <input required class="form-control" id="event_code" name="event_code" placeholder="Ex: EVT-2025-ABCD">
+    <button class="btn btn-primary mt-3" type="submit">Continuer</button>
+  </form>
+
+  <div class="alert alert-info mt-4">
+    Note : Si l’événement est <strong>gratuit</strong>, nous créerons votre billet immédiatement.
+    S’il est <strong>payant</strong>, vous serez redirigé vers la page de paiement.
+  </div>
+</div>
+{% endblock %}

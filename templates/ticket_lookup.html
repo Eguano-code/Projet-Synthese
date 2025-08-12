@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container my-5" style="max-width:600px;">
+  <h2 class="mb-3">Retrouver mon billet</h2>
+
+  {% if error %}
+    <div class="alert alert-danger">{{ error }}</div>
+  {% endif %}
+
+  <form method="POST">
+    <label for="ticket_code" class="form-label">Code du billet</label>
+    <input type="text" id="ticket_code" name="ticket_code" class="form-control" required placeholder="Collez votre code">
+    <div class="form-text">Vous recevrez ce code après votre inscription / achat.</div>
+
+    <button type="submit" class="btn btn-primary mt-3">Afficher mon billet</button>
+  </form>
+</div>
+
+{% endblock %}

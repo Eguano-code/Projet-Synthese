@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container my-5" style="max-width:720px;">
+  <h2 class="mb-3">Paiement — {{ event.titre }}</h2>
+  <p class="lead">Montant : <strong>{{ event.tarif_montant }} $</strong></p>
+
+  <div class="mb-3">
+    <span class="me-2">Méthodes acceptées :</span>
+    <i class="fa-brands fa-cc-visa fa-2xl me-2"></i>
+    <i class="fa-brands fa-cc-mastercard fa-2xl me-2"></i>
+    <i class="fa-brands fa-cc-paypal fa-2xl"></i>
+  </div>
+
+  <form method="POST" class="card p-4 shadow-sm">
+    <div class="row g-3">
+      <div class="col-12">
+        <label class="form-label">Payer avec</label>
+        <div class="d-flex gap-3">
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="brand" id="b1" value="visa" checked>
+            <label class="form-check-label" for="b1"><i class="fa-brands fa-cc-visa me-1"></i>Visa</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="brand" id="b2" value="mc">
+            <label class="form-check-label" for="b2"><i class="fa-brands fa-cc-mastercard me-1"></i>Mastercard</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="brand" id="b3" value="paypal">
+            <label class="form-check-label" for="b3"><i class="fa-brands fa-cc-paypal me-1"></i>PayPal</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Titulaire de la carte</label>
+        <input class="form-control" name="holder" required placeholder="Nom sur la carte">
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Numéro</label>
+        <input class="form-control" name="number" required placeholder="•••• •••• •••• ••••">
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Expiration</label>
+        <input class="form-control" name="exp" required placeholder="MM/AA">
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">CVC</label>
+        <input class="form-control" name="cvc" required placeholder="CVC">
+      </div>
+    </div>
+
+    <div class="d-flex gap-2 mt-4">
+      <button type="submit" class="btn btn-success">Payer et obtenir mon billet</button>
+      <a href="{{ url_for('vente') }}" class="btn btn-secondary">Retour</a>
+    </div>
+  </form>
+
+  <div class="alert alert-warning mt-4">
+    <strong>Rappel :</strong> L’annulation d’un billet n’est possible que <strong>jusqu’à 48 heures</strong>
+    avant le début de l’événement. Vous pourrez annuler depuis la page de votre billet.
+  </div>
+</div>
+
+{% endblock %}

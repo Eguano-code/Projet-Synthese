@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='terms.css') }}">
+
+<div class="container">
+
+  <div class="terms-hero">
+    <h1>Conditions d’utilisation</h1>
+    <div class="terms-updated">Dernière mise à jour : {{ current_year }}</div>
+  </div>
+
+  <div class="terms-card">
+    <h2>1. Objet</h2>
+    <p>
+      Les présentes conditions encadrent l’accès et l’usage de <strong>Plateforme ME</strong>,
+      un service de gestion d’événements incluant billetterie, paiements et recommandations.
+      En utilisant le site, vous acceptez ces conditions.
+    </p>
+  </div>
+
+  <div class="terms-card">
+    <h2>2. Comptes et sécurité</h2>
+    <ul class="terms-list">
+      <li>Vous êtes responsable des informations fournies et de la confidentialité de vos identifiants.</li>
+      <li>Prévenez-nous immédiatement en cas d’accès non autorisé.</li>
+      <li>Nous pouvons suspendre un compte en cas d’usage frauduleux ou non conforme.</li>
+    </ul>
+  </div>
+
+  <div class="terms-card">
+    <h2>3. Organisation d’événements</h2>
+    <ul class="terms-list">
+      <li>L’organisateur est seul responsable du contenu, de la légalité et du bon déroulement des événements.</li>
+      <li>Les descriptions, tarifs, quotas et politiques de remboursement doivent être exacts et visibles.</li>
+      <li>Les organisateurs respectent les lois applicables (sécurité, fiscalité, propriété intellectuelle, etc.).</li>
+    </ul>
+  </div>
+
+  <div class="terms-card">
+    <h2>4. Billets et participation</h2>
+    <ul class="terms-list">
+      <li>Le billet est personnel et peut être soumis à contrôle d’identité et de validité (QR code, statut).</li>
+      <li>Les conditions d’annulation ou de remboursement sont définies par l’organisateur.</li>
+      <li>En cas d’annulation d’événement, l’organisateur demeure l’interlocuteur principal des participants.</li>
+    </ul>
+  </div>
+
+  <div class="terms-card">
+    <h2>5. Paiements</h2>
+    <ul class="terms-list">
+      <li>Lorsque le paiement en ligne est activé, vous consentez aux frais et taxes applicables.</li>
+      <li>Les transactions peuvent être traitées par un prestataire de paiement tiers.</li>
+      <li>Nous pouvons retarder ou annuler une transaction en cas de risque avéré de fraude.</li>
+    </ul>
+  </div>
+
+  <div class="terms-card">
+    <h2>6. Contenus et propriété intellectuelle</h2>
+    <ul class="terms-list">
+      <li>Vous garantissez disposer des droits nécessaires sur les contenus que vous publiez.</li>
+      <li>Vous nous accordez une licence limitée pour héberger et afficher ces contenus dans le seul but d’exploiter le service.</li>
+      <li>Toute extraction massive, copie ou ingénierie inverse de la plateforme est interdite.</li>
+    </ul>
+  </div>
+
+  <div class="terms-card">
+    <h2>7. Utilisation acceptable</h2>
+    <ul class="terms-list">
+      <li>Pas d’usage illégal, diffamatoire, discriminatoire, haineux, ou visant à nuire au service.</li>
+      <li>Pas de tentative d’accès non autorisé, d’attaque, de saturation, ou de contournement des mesures de sécurité.</li>
+    </ul>
+  </div>
+
+  <div class="terms-card">
+    <h2>8. Disponibilité et évolution</h2>
+    <p>
+      Nous nous efforçons d’assurer la disponibilité du service, sans garantie d’absence d’interruption.
+      Nous pouvons modifier les fonctionnalités ou les présentes conditions pour des raisons techniques,
+      légales ou de sécurité. En cas de changement majeur, un avis raisonnable sera affiché.
+    </p>
+  </div>
+
+  <div class="terms-card">
+    <h2>9. Données personnelles</h2>
+    <p>
+      Le traitement des données personnelles est décrit dans notre
+      <a href="{{ url_for('privacy') }}">Politique de confidentialité</a>.
+    </p>
+  </div>
+
+  <div class="terms-card">
+    <h2>10. Limitation de responsabilité</h2>
+    <p>
+      Sauf disposition impérative, Plateforme ME ne peut être tenue responsable des pertes indirectes,
+      pertes de profit, ou dommages imputables aux événements organisés par des tiers.
+    </p>
+  </div>
+
+  <div class="terms-card">
+    <h2>11. Contact</h2>
+    <p>
+      Pour toute question : <a href="mailto:contact@evenements.com">contact@evenements.com</a>.
+    </p>
+    <div class="terms-note">
+      En utilisant Plateforme ME, vous déclarez avoir lu et accepté ces conditions.
+    </div>
+  </div>
+
+  <div class="terms-actions d-flex gap-2 mt-3">
+    <a href="{{ url_for('register') }}" class="btn btn-warning">Créer un compte</a>
+    <a href="{{ url_for('create_event') }}" class="btn btn-outline-dark">Créer un événement</a>
+  </div>
+
+</div>
+{% endblock %}

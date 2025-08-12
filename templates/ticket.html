@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container my-5">
+  <div class="alert alert-success">
+    ✅ Votre événement a été créé avec succès !
+  </div>
+
+  <div class="card shadow">
+    <div class="card-body p-4">
+      <div class="row g-4 align-items-center">
+        <div class="col-md-4 text-center">
+          <!-- QR code -->
+          <img src="{{ qr_data_uri }}" alt="QR code billet" class="img-fluid border rounded p-2">
+          <div class="small mt-2">
+            Vérification : <a href="{{ verify_url }}" target="_blank">{{ verify_url }}</a>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <h3 class="mb-3">Billet — {{ ticket.titre }}</h3>
+
+          <dl class="row mb-0">
+            <dt class="col-sm-4">Code</dt>
+            <dd class="col-sm-8">{{ ticket.code }}</dd>
+
+            <dt class="col-sm-4">Date de début</dt>
+            <dd class="col-sm-8">{{ ticket.debut }}</dd>
+
+            <dt class="col-sm-4">Date de fin</dt>
+            <dd class="col-sm-8">{{ ticket.fin }}</dd>
+
+            <dt class="col-sm-4">Nombre de places</dt>
+            <dd class="col-sm-8">{{ ticket.nb_places }}</dd>
+
+            <dt class="col-sm-4">Statut</dt>
+            <dd class="col-sm-8">{{ ticket.statut }}</dd>
+
+            {% if ticket.lien %}
+            <dt class="col-sm-4">Lien</dt>
+            <dd class="col-sm-8"><a href="{{ ticket.lien }}" target="_blank">{{ ticket.lien }}</a></dd>
+            {% endif %}
+
+            <dt class="col-sm-4">Tarif</dt>
+            <dd class="col-sm-8">
+              {% if ticket.tarif_type == 'payant' %}
+                Payant — {{ ticket.tarif_montant }} $
+              {% else %}
+                Gratuit
+              {% endif %}
+            </dd>
+
+            {% if ticket.nom_participant %}
+            <dt class="col-sm-4">Participant</dt>
+            <dd class="col-sm-8">{{ ticket.nom_participant }}</dd>
+            {% endif %}
+          </dl>
+        </div>
+      </div>
+
+      <hr class="my-4">
+
+      <div class="d-flex gap-2">
+        <button class="btn btn-primary" onclick="window.print()">Imprimer</button>
+        <a class="btn btn-secondary" href="{{ url_for('home') }}">Retour à l’accueil</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
